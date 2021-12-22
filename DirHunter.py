@@ -50,12 +50,13 @@ def main():
 	elif len(argv) == 3:
 		print(bcolors.OK+"[+] "+bcolors.RESET+'ready to hunt the dir !')
 		print(bcolors.OK+"[+] "+bcolors.RESET+'searching for deers... Hum, I mean dirs')
-		dirb(str(argv[1]),"/"+str(argv[2]))
+		hunt(str(argv[1]),"/"+str(argv[2]))
+		hunt(str(argv[1])+"/"+hunt.goodir,"/"+str(argv[2]))
+
 	else:
 		print(bcolors.FAIL+"[!] "+bcolors.RESET+ 'usage: python3 DirHunter.py "url" "wordlist"')
 
-def dirb(urls,wordlist):
-	path=[]
+def hunt(urls,wordlist):
 	url=urls
 	try:
 		if os.path.exists(os.getcwd()+wordlist):
