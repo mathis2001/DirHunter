@@ -1,7 +1,7 @@
 import requests 
 import os
-import sys 
-from sys import argv
+import sys
+from sys import argv 
 import time
 
 print('''
@@ -50,14 +50,21 @@ def main():
 	elif len(argv) == 3:
 		print(bcolors.OK+"[+] "+bcolors.RESET+'ready to hunt the dir !')
 		print(bcolors.OK+"[+] "+bcolors.RESET+'searching for deers... Hum, I mean dirs')
+		Start=time.time()
 		hunt(str(argv[1]),"/"+str(argv[2]))
+		count=hunt.count
 		hunt(str(argv[1])+"/"+hunt.goodir,"/"+str(argv[2]))
-
+		End=time.time()
+		Time=End-Start
+		print(bcolors.OK+"[+] "+bcolors.RESET+"Hunting time: ", Time, "sec")
+		print(bcolors.OK+"[+] "+bcolors.RESET+"End time: ", time.ctime())
+		print(bcolors.OK+"[+] "+bcolors.RESET+"Your day's catch: ", count+hunt.count)
 	else:
 		print(bcolors.FAIL+"[!] "+bcolors.RESET+ 'usage: python3 DirHunter.py "url" "wordlist"')
 
 def hunt(urls,wordlist):
 	url=urls
+	hunt.count=0
 	try:
 		if os.path.exists(os.getcwd()+wordlist):
 			file=open(os.getcwd()+wordlist,"r")
@@ -66,35 +73,41 @@ def hunt(urls,wordlist):
 				dir=''.join(dir)
 				rq=requests.get(url+"/"+dir)
 				dir_len=len(dir)
+
 				if rq.status_code == 200:
 					print("Aiming : "+url+"/"+dir,end="\r")
 					time.sleep(0.05)
 					print("Aiming : "+url+"/"+dir_len*" ",end="\r") 
 					print("\n")
-					print(bcolors.OK+"[+] "+bcolors.RESET+"Aiming : "+url+"/"+dir+"   "+str(rq.status_code)+": dir shot ︻デ═一") 
-					goodir=dir
+					print(bcolors.OK+"[+] "+bcolors.RESET+"Aiming : "+url+"/"+dir+"   "+bcolors.OK+str(rq.status_code)+bcolors.RESET+": dir shot ︻デ═一") 
+					hunt.goodir=dir
+					hunt.count=hunt.count+1
+
 				elif rq.status_code == 403:
 					print("Aiming : "+url+"/"+dir,end="\r")
 					time.sleep(0.05)
 					print("Aiming : "+url+"/"+dir_len*" ",end="\r")
 					print("\n")
-					print(bcolors.WARNING+"[-] "+bcolors.RESET+"Aiming : "+url+"/"+dir+"   "+str(rq.status_code)+": restricted area !") 
+					print(bcolors.WARNING+"[-] "+bcolors.RESET+"Aiming : "+url+"/"+dir+"   "+bcolors.WARNING+str(rq.status_code)+bcolors.RESET+": restricted area !") 
+
 				else:
 					print("Aiming :"+url+"/"+dir,end="\r")
 					time.sleep(0.05)
 					print("Aiming :"+url+"/"+dir_len*" ",end="\r") 
+
 			file.close()
 			print("\n")
 			print(bcolors.OK+"[+] "+bcolors.RESET+"Hunt finished.")
+
 		else:
-			print(bcolors.FAIL+"[!] "+bcolors.RESET+wordlist+" don't exist in this directory")
+			print(bcolors.FAIL+"[!] "+bcolors.RESET+wordlist+" don't exist in this directory")	
+
 	except KeyboardInterrupt:
 		print("\n")
 		print(bcolors.FAIL+"[!] "+bcolors.RESET+"Hunting has been abandoned")
+
 	except Exception as e:
-		print(e)
-
-
+		print(bcolors.FAIL+"[!] "+bcolors.RESET+e)
 
 
 if __name__ == '__main__':
