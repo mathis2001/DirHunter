@@ -14,7 +14,7 @@ print('''
           \|  |  ||                                 |_______________________________________________|
             |  \_/                                  |						    |
            \_|  |   by Mathis Pais  __       	    |	date: 22/12/2021			    |
-        ---__\   \   ___________   /|_\  __---      |	version: 1.0			            |
+        ---__\   \   ___________   /|_\  __---      |	version: 1.1			            |
         \  -  -\   \-           -/   /--   - /      |	description: brute-force tool for           |
           \  \  \                   /    / /        |	websites directories discovery.             |
             \___/       __.__        \___/          |	usage:                                      |
