@@ -14,7 +14,7 @@ print('''
           \|  |  ||                                 |_______________________________________________|
             |  \_/                                  |						    |
            \_|  |   by Mathis Pais  __       	    |	date: 22/12/2021			    |
-        ---__\   \   ___________   /|_\  __---      |	version: 1.2			            |
+        ---__\   \   ___________   /|_\  __---      |	version: 1.3			            |
         \  -  -\   \-           -/   /--   - /      |	description: brute-force tool for           |
           \  \  \                   /    / /        |	websites directories discovery.             |
             \___/       __.__        \___/          |	usage:                                      |
@@ -53,10 +53,15 @@ def main():
 		Start=time.time()
 		hunt(str(argv[1]),"/"+str(argv[2]))
 		count=hunt.count
-		hunt.path.pop(0)
+
+		if not hunt.path:
+			print(bcolors.FAIL+"[!] "+bcolors.RESET+"no dir found.")
+		else:
+			hunt.path.pop(0)
 		for dir in hunt.path:
 			hunt.count=hunt.count-1
 			hunt(str(argv[1])+"/"+dir,"/"+str(argv[2]))
+
 		End=time.time()
 		Time=End-Start
 		print("\n")
@@ -95,7 +100,7 @@ def hunt(urls,wordlist):
 					print("Aiming : "+url+"/"+dir_len*" ",end="\r")
 					print("\n")
 					print(bcolors.WARNING+"[-] "+bcolors.RESET+"Aiming : "+url+"/"+dir+"   "+bcolors.WARNING+str(rq.status_code)+bcolors.RESET+": restricted area !") 
-
+				
 				else:
 					print("Aiming :"+url+"/"+dir,end="\r")
 					time.sleep(0.05)
