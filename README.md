@@ -3,3 +3,8 @@ Outil de brute force des repertoires de sites web semblable à dirbuster. (Mais 
 ![image](https://user-images.githubusercontent.com/40497633/147463796-8d55e5f9-6f79-4390-bfc1-2d2fdce873ae.png)
 
 ![image](https://user-images.githubusercontent.com/40497633/147466274-fd134eed-ddf7-43fa-a046-4c9eefdac5ad.png)
+
+![image](https://user-images.githubusercontent.com/40497633/147468744-7d969662-44d0-4656-af4b-9d82a8aa7994.png)
+
+
+
