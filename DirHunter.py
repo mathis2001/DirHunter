@@ -14,7 +14,7 @@ print('''
           \|  |  ||                                 |_______________________________________________|
             |  \_/                                  |						    |
            \_|  |   by Mathis Pais  __       	    |	date: 22/12/2021			    |
-        ---__\   \   ___________   /|_\  __---      |	version: 1.1			            |
+        ---__\   \   ___________   /|_\  __---      |	version: 1.0			            |
         \  -  -\   \-           -/   /--   - /      |	description: brute-force tool for           |
           \  \  \                   /    / /        |	websites directories discovery.             |
             \___/       __.__        \___/          |	usage:                                      |
@@ -53,9 +53,13 @@ def main():
 		Start=time.time()
 		hunt(str(argv[1]),"/"+str(argv[2]))
 		count=hunt.count
-		hunt(str(argv[1])+"/"+hunt.goodir,"/"+str(argv[2]))
+		hunt.path.pop(0)
+		for dir in hunt.path:
+			hunt.count=hunt.count-1
+			hunt(str(argv[1])+"/"+dir,"/"+str(argv[2]))
 		End=time.time()
 		Time=End-Start
+		print("\n")
 		print(bcolors.OK+"[+] "+bcolors.RESET+"Hunting time: ", Time, "sec")
 		print(bcolors.OK+"[+] "+bcolors.RESET+"End time: ", time.ctime())
 		print(bcolors.OK+"[+] "+bcolors.RESET+"Your day's catch: ", count+hunt.count)
@@ -63,6 +67,7 @@ def main():
 		print(bcolors.FAIL+"[!] "+bcolors.RESET+ 'usage: python3 DirHunter.py "url" "wordlist"')
 
 def hunt(urls,wordlist):
+	hunt.path=[]
 	url=urls
 	hunt.count=0
 	try:
@@ -82,6 +87,7 @@ def hunt(urls,wordlist):
 					print(bcolors.OK+"[+] "+bcolors.RESET+"Aiming : "+url+"/"+dir+"   "+bcolors.OK+str(rq.status_code)+bcolors.RESET+": dir shot ︻デ═一") 
 					hunt.goodir=dir
 					hunt.count=hunt.count+1
+					hunt.path.append(hunt.goodir)
 
 				elif rq.status_code == 403:
 					print("Aiming : "+url+"/"+dir,end="\r")
