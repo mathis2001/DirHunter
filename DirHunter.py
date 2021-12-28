@@ -56,7 +56,7 @@ def main():
 
 		if not hunt.path:
 			print(bcolors.FAIL+"[!] "+bcolors.RESET+"no dir found.")
-		else:
+		elif hunt.path[0] == "":
 			hunt.path.pop(0)
 		for dir in hunt.path:
 			hunt.count=hunt.count-1
